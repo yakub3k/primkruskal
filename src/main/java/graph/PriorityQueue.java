@@ -6,19 +6,15 @@ import java.util.List;
 import java.util.Set;
 
 public class PriorityQueue {
-    private final int n;                                        // wielkosc kolejki
     private final List<Pair<Integer, Integer>> elements;        // wszystkie elementy kolejki
     private final int[] weight;                                 // wagi elementow
     private final int[] from;                                   // skąd przyszła ścieżka
     private final boolean[] visited;                            // oznaczanie odwiedzonych
-    private int head;                                           // numer elementu glowy w tablicy
 
     /**
      * @param n długość kolejki
      */
     public PriorityQueue(int n) {
-        this.n = n;
-        this.head = 0;
         this.elements = Util.init(n);
         this.weight = Util.init(n, Integer.MAX_VALUE);
         this.from = Util.init(n, -1);
@@ -36,10 +32,6 @@ public class PriorityQueue {
 
     public Pair<Integer, Integer> get(int i) {
         return elements.get(i);
-    }
-
-    public int getFrom(int i) {
-        return from[i];
     }
 
     public void relax(int current, Set<Pair<Integer, Integer>> neighbors) {
