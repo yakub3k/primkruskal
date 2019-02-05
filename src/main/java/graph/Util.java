@@ -54,8 +54,9 @@ public class Util {
         return list;
     }
 
-    public static void show(List<ComeFrom> tree) {
-        log("show tree : " + tree.size());
-        tree.forEach(e -> log("from: " + e.getFrom() + " to: " + e.getId() + " weight:" + e.getWeight()));
+    public static void show(List<Edge> tree) {
+        log(" --- Show tree : " + tree.size() + " --- ");
+        tree.forEach(e -> log("from: " + e.getFrom() + " to: " + e.getTo() + " weight:" + e.getWeight()));
+        log(" --- Show end --- ");
     }
 }

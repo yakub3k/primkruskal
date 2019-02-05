@@ -1,9 +1,8 @@
 package prim;
 
-import graph.ComeFrom;
+import graph.Edge;
 import graph.Graph;
 import graph.PriorityQueue;
-import graph.Util;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -18,17 +17,17 @@ public class Prim {
 
     }
 
-    public List<ComeFrom> mstTree() {
+    public List<Edge> msTree() {
         int n = graph.getN();
-        List<ComeFrom> comeFrom = new ArrayList<>(n);                               // drzewo spinajace z wagami
+        List<Edge> comeFrom = new ArrayList<>(n);                               // drzewo spinajace z wagami
         Set<Pair<Integer, Integer>>[] neighbors = graph.getNeighbors();
 
         PriorityQueue queue = new PriorityQueue(n);
 
         for (int i = 0; i < n; i++) {
-            ComeFrom current = queue.head();                                          // biorę pierwszy z kolejki
+            Edge current = queue.head();                                          // biorę pierwszy z kolejki
             comeFrom.add(current);                                                    // odkładam do odwiedzonych
-            int currentId = current.getId();
+            int currentId = current.getTo();
             Set<Pair<Integer, Integer>> neighbor = neighbors[currentId];              // biorę jego sąsiadów
             queue.relax(currentId, neighbor);                                         // uaktualniam wagi w kolejce
         }

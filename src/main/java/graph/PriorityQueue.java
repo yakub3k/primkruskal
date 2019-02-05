@@ -22,12 +22,12 @@ public class PriorityQueue {
         this.visited = Util.init(n, false);
     }
 
-    public ComeFrom head() {
+    public Edge head() {
         Pair<Integer, Integer> element = elements.remove(0);
         Integer id = element.getKey();
         Integer value = element.getValue();
         visited[id] = true;
-        return new ComeFrom(id, value,  from[id]);
+        return new Edge(id, value,  from[id]);
     }
 
     public Pair<Integer, Integer> get(int i) {

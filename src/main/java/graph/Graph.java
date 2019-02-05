@@ -2,6 +2,8 @@ package graph;
 
 import javafx.util.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,6 +12,7 @@ public class Graph {
     private final int n;
     private final Set<Pair<Integer, Integer>>[] neighbors;
     private int[][] edge;
+    private final List<Edge> rawEdge;
 
     Graph(int n) {
         this.n = n;
@@ -18,13 +21,15 @@ public class Graph {
             neighbors[i] = new TreeSet<>(Util.PAIR_COMPARATOR);
         }
         this.edge = new int[n][n];
+        this.rawEdge = new ArrayList<>();
     }
 
-    public void addEdge(int from, int to, int height) {
-        this.edge[from][to] = height;
-        this.edge[to][from] = height;
-        this.neighbors[from].add(new Pair<>(to, height));
-        this.neighbors[to].add(new Pair<>(from, height));
+    public void addEdge(int from, int to, int weight) {
+        this.rawEdge.add(new Edge(to, weight, from));
+        this.edge[from][to] = weight;
+        this.edge[to][from] = weight;
+        this.neighbors[from].add(new Pair<>(to, weight));
+        this.neighbors[to].add(new Pair<>(from, weight));
     }
 
     public String showNeighbors() {
@@ -63,22 +68,6 @@ public class Graph {
         return result.toString();
     }
 
-    public void showNeighborsSec() {
-        StringBuilder result = new StringBuilder("\n");
-        for (int i = 0; i < neighbors.length; i++) {
-            result.append("[").append(i).append("] ");
-            Set<Pair<Integer, Integer>> neighbor = neighbors[i];
-            for (Pair<Integer, Integer> point : neighbor) {
-                result.append(point.getKey())
-                        .append(" (")
-                        .append(point.getValue())
-                        .append(") ");
-            }
-            result.append("\n");
-        }
-        Util.log("Neighbors:\n" + result.toString());
-    }
-
     public int getN() {
         return n;
     }
@@ -91,7 +80,7 @@ public class Graph {
         return edge;
     }
 
-    public void getVertexes() {
-
+    public List<Edge> getRawEdge() {
+        return rawEdge;
     }
 }
